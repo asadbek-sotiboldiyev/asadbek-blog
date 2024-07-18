@@ -1,0 +1,76 @@
+header{
+		box-shadow: 0 0 5px grey;
+}
+form{
+	margin-top: 100px;
+}
+.publish-btn-div{
+	display: flex;
+	justify-content: right;
+}
+.publish-btn{
+	font-size: 25px;
+	padding: 5px 15px;
+	margin-top: 5px;
+	border: 1px solid black;
+	border-radius: 50px;
+}
+
+.poster-upload-btn-div input{
+	display: none;
+}
+
+.poster-upload-btn{
+	display: inline-block;
+	background-color: buttonface;
+	font-size: 20px;
+	padding: 5px 30px;
+	border: 1px solid black;
+	border-radius: 100px;
+	cursor: pointer;
+}
+
+.title-input{
+	width: 100%;
+	margin: 5px 0;
+	padding: 5px 10px;
+	font-size: 20px;
+}
+
+
+
+trix-editor, #article{
+  *{
+    font-size: 20px;
+    margin-top: 20px;
+    line-height: 28px;
+    font-family: ;
+  }
+  h1{
+  	font-size: 30px;
+  }
+  blockquote{
+    background-color: #ddd;
+    margin-left: 15px;
+    padding: 10px;
+    padding-left: 20px;
+    border-left: 4px solid grey;
+  /*  border-radius: 10px;*/
+  }
+  a{
+    color: blue;
+  }
+
+  pre{
+  	background-color: #c5c5c5;
+  	color: black; 
+  	border: 1px solid black;
+  	font-family: source code pro;
+  	padding: 10px;
+  	border-radius: 5px;
+  }
+}
+
+.trix-content{
+	margin-bottom: 50px;
+}

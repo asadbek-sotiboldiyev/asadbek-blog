@@ -1,0 +1,13 @@
+-- Article:
+| id
+| title
+| poster [nullable]
+| content
+| timestamps
+-------------
+
+-- Footer:
+| id
+| footer
+| timestamps
+-------------
