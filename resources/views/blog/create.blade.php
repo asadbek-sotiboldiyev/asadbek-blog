@@ -16,12 +16,6 @@
 			<button class="publish-btn" id="publish-btn">Publish</button>
 		</div>
 		<br>
-		<!--
-		<div class="poster-upload-btn-div">
-			<input type="file" name="poster" id="posterUpload">
-			<label class="poster-upload-btn" for="posterUpload">Poster joylang +</label>
-		</div>
-		-->
 		<input class="form-control my-2" type="text" name="title" placeholder="mavzu">
 
 		<input id="x" type="hidden" name="content" value="" required/>

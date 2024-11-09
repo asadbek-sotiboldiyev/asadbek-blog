@@ -17,7 +17,6 @@ return new class extends Migration
             $table->id();
             $table->string('url')->unique();
             $table->string('title');
-            $table->string('poster')->nullable();
             $table->longText('content');
             $table->string('telegram_message_id')->nullable();
             $table->timestamps();

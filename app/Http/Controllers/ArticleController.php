@@ -11,6 +11,7 @@ use App\Http\Controllers\BotController;
 
 class ArticleController extends Controller
 {
+    public static $useBot;
     /**
      * Display a listing of the resource.
      *
@@ -31,7 +32,7 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        if(!Auth::check()) abort(404);
+        if(!Auth::check()) abort(403);
         return view('blog/create');
     }
 
@@ -43,7 +44,7 @@ class ArticleController extends Controller
      */
     public function store(StoreArticleRequest $request)
     {
-        if(!Auth::check()) abort(404);
+        if(!Auth::check()) abort(403);
 
         $title = $request->input('title');
         $url = Article::titleToUrl($title);
@@ -52,16 +53,15 @@ class ArticleController extends Controller
             $url = $url . date('-d-m-Y');
         };
         $content = $request->input('content');
-        // $poster = $request->input('poster');
 
-        $bot = BotController::sendMessage($title, $content);
+        if(self::$useBot)
+            $bot = BotController::sendMessage($title, $content);
 
         $new_article = Article::create([
             'url' => $url,
             'title' => $title,
             'content' => $content,
-            // 'poster' => $poster,
-            'telegram_message_id' => $bot->result->message_id
+            'telegram_message_id' => (self::$useBot ? $bot->result->message_id : '')
         ]);
         return redirect()->route('blogShow', ['url' => $url]);
     }
@@ -92,7 +92,7 @@ class ArticleController extends Controller
      */
     public function edit($url)
     {
-        if(!Auth::check()) abort(404);
+        if(!Auth::check()) abort(403);
 
         $article = Article::select('*')->where('url', '=', $url)->firstOrFail();
         return view('blog/edit', $data = [
@@ -118,15 +118,14 @@ class ArticleController extends Controller
         if($new_url != $url and Article::urlExists($new_url)){
             $new_url = $new_url . date_format($article->created_at, '-d-m-Y');
         };
-        if($article->content != $content)
+        if(self::$useBot and $article->content != $content)
             BotController::editMessageText($title, $content, $article->telegram_message_id);
 
         $article->update([
             'url' => $new_url,
             'title' => $title,
             'content' => $content,
-            // 'poster' => $poster,
-            'telegram_message_id' => $article->telegram_message_id
+            'telegram_message_id' => (self::$useBot ? $article->telegram_message_id : '')
         ]);
 
         return redirect()->route('blogShow', ['url' => $new_url]);
@@ -140,23 +139,26 @@ class ArticleController extends Controller
      */
     public function destroy($url)
     {
-        if(!Auth::check()) abort(404);
+        if(!Auth::check()) abort(403);
 
         $article = Article::select('*')->where('url', '=', $url)->firstOrFail();
-        BotController::deleteMessage($article->telegram_message_id);
+        if (self::$useBot)
+            BotController::deleteMessage($article->telegram_message_id);
         $article->delete();
         return redirect()->route('blogIndex');
     }
 
     public function delete($url){
-        if(!Auth::check()) abort(404);
+        if(!Auth::check()) abort(403);
 
         $article = Article::select('*')->where('url', '=', $url)->firstOrFail();
         return view('blog/delete', $data = [
             'article' => $article
         ]);
     }
-
-
-
 }
+/* 
+$useBot ni true qilishdan oldin
+.env faylidagi BO_TOEKN va BOT_TELEGRAM_CHANNEL_ID ni to'ldiring
+*/
+ArticleController::$useBot = false;

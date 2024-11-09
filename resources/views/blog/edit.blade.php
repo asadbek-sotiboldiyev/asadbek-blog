@@ -19,7 +19,6 @@
 		<br>
 		<div class="poster-upload-btn-div">
 			<input type="file" name="poster" id="posterUpload">
-			<label class="poster-upload-btn" for="posterUpload">Poster joylang +</label>
 		</div>
 		<input class="title-input" type="text" name="title" placeholder="mavzu" value="{{ $article->title }}">
 

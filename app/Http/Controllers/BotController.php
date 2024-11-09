@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 class BotController extends Controller
 {
     public static $BOT_TOKEN;
-    public static $BOT_CHANNEL_ID;
+    public static $BOT_TELEGRAM_CHANNEL_ID;
     public static $API;
 
     public static function formatToHTML($title, $text){
@@ -27,7 +27,7 @@ class BotController extends Controller
 
         $text = "<b>$title</b>\n\n" . $text;
 
-        $text = $text . "\n\n<a href='https://t.me/sotiboldiyev_asadbek'>🧑‍💻Asadbek's blog</a>";
+        $text = $text . "\n\n@sotiboldiyev_asadbek";
         $text = str_replace("\n\n\n", "\n\n", $text);
 
         return $text;
@@ -39,7 +39,7 @@ class BotController extends Controller
     public static function sendMessage($title, $text){
         $text = self::formatToHTML($title, $text);
         $data = [
-            'chat_id' => self::$BOT_CHANNEL_ID,
+            'chat_id' => self::$BOT_TELEGRAM_CHANNEL_ID,
             'text' => $text,
             'parse_mode' => 'html',
             'disable_web_page_preview' => true
@@ -51,7 +51,7 @@ class BotController extends Controller
         $text = self::formatToHTML($title, $text);
         
         $data = [
-            'chat_id' => self::$BOT_CHANNEL_ID,
+            'chat_id' => self::$BOT_TELEGRAM_CHANNEL_ID,
             'message_id' => $message_id,
             'text' => $text,
             'parse_mode' => 'html',
@@ -63,7 +63,7 @@ class BotController extends Controller
     public static function deleteMessage($message_id)
     {
         $data = [
-            'chat_id' => self::$BOT_CHANNEL_ID,
+            'chat_id' => self::$BOT_TELEGRAM_CHANNEL_ID,
             'message_id' => $message_id,
         ];
         return self::call('deleteMessage', $data);
@@ -75,8 +75,7 @@ class BotController extends Controller
      * @return object
      */
     public static function call($method, $data){
-        $api_url = "https://api.telegram.org/bot" . BotController::$BOT_TOKEN . '/' . $method;
-        $ch = curl_init($api_url);
+        $ch = curl_init(self::$API . "/" . $method);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
@@ -87,5 +86,5 @@ class BotController extends Controller
 }
 
 BotController::$BOT_TOKEN = env('BOT_TOKEN');
-BotController::$BOT_CHANNEL_ID = env('BOT_CHANNEL_ID');
-BotController::$API = "https://api.telegram.org/bot" . BotController::$BOT_TOKEN . '/';
+BotController::$BOT_TELEGRAM_CHANNEL_ID = env('BOT_TELEGRAM_CHANNEL_ID');
+BotController::$API = "https://api.telegram.org/bot" . BotController::$BOT_TOKEN;
