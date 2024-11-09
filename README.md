@@ -39,6 +39,7 @@ php artisan serve
 ### http://localhost:8000 da sayt ishga tushadi 
 
 </br>
+
 ## Admin hisobni sozlash
 `database/seeders/DatabaseSeeder.php` faylidagi kodni kommentdan chiqarib email va parol qo'ying.
 Keyin terminalda ushbu kodni ishga tushiring:
