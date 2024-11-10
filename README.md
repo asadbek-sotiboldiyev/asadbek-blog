@@ -58,6 +58,6 @@ Buning uchun:
 - @botfather beran TOKEN ni `.env` dagi `BOT_TOKEN` ga qo'ying. 
 - ochgan botingizni kanalingizga admin qilib tayinlang.
 - @username_to_id_bot orqali kanalingiz `id` sini olib `BOT_TELEGRAM_CHANNEL_ID` ga qo'ying.
-- `App/Http/Controllers/BotController.php` faylingi oxiridagi `false` ni `true` qilib o'zgartiring.
+- `.env` faylingi oxiridagi `USE_BOT` ning qiymatini `true` qilib o'zgartiring.
 
 Endi siz yozgan maqolalar shu vaqtni o'zida telegram kanalingizga ham joylanadi.

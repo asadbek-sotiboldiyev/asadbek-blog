@@ -157,8 +157,5 @@ class ArticleController extends Controller
         ]);
     }
 }
-/* 
-$useBot ni true qilishdan oldin
-.env faylidagi BO_TOEKN va BOT_TELEGRAM_CHANNEL_ID ni to'ldiring
-*/
-ArticleController::$useBot = false;
+
+ArticleController::$useBot = env('USE_BOT');
