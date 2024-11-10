@@ -1,7 +1,7 @@
 # Personal blog
 </br>
 
-## Azimjon Pulatovning blog sahifasi nusxasi. [azimjon.com](https://azimjon.com) 
+## Blog sayt. Frontend [azimjon.com](https://azimjon.com) saytidan olindi :) 
 ## Texnalogiyalar:
 - Backend: php, laravel
 - Frontend: HTML, Css, Bootstrap
